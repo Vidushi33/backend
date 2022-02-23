@@ -36,14 +36,14 @@ app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
-mongoose
-  .connect("mongodb://localhost:27017/paymentorder", {
-    useFindAndModify: true,
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  })
-  .then(() => console.log("DB CONNECTED"))
-  .catch(() => console.log("FAILED TO CONNET WITH DB"));
+// mongoose
+//   .connect("mongodb://localhost:27017/paymentorder", {
+//     useFindAndModify: true,
+//     useUnifiedTopology: true,
+//     useNewUrlParser: true,
+//   })
+//   .then(() => console.log("DB CONNECTED"))
+//   .catch(() => console.log("FAILED TO CONNET WITH DB"));
 
 app.use(bodyParser.json());
 // app.use(cors());
