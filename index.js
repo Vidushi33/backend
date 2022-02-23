@@ -5,16 +5,24 @@ const bodyParser = require("body-parser");
 const paymentRoute = require("./paymentRoute");
 const mongoose = require("mongoose");
 const userRouter = require('./routers/user');
+const dotenv = require("dotenv"); 
 require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
+const mongourl = process.env.mongoURL ; 
 const cors = require('cors');
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
 
+const  mongoAtlasUri = mongourl ; 
+// "mongodb+srv://pranav:1999mistry@cluster0.usll9.mongodb.net/Cluster0?retryWrites=true&w=majority";
+mongoose.connect(mongoAtlasUri, {
+  useNewUrlParser: true,
+  // useCreateIndex: true,
+  useUnifiedTopology: true
+});
 
 app.use(express.static(path.join(__dirname, '..', 'build')));
 app.use(express.json());
