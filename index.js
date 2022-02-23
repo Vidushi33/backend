@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 const mongourl = process.env.mongoURL ; 
 const cors = require('cors');
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: 'https://application-0-tooww.mongodbstitch.com/'
 }));
 
 const  mongoAtlasUri = mongourl ; 
@@ -68,7 +68,7 @@ app.use("./api", paymentRoute);
 // });
 
 app.listen(PORT, () => {
-  console.log(`server started on port ${PORT}`);
+  console.log(`server started on port no ${PORT}`);
 });
 
 
