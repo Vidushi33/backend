@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000;
 const mongourl = process.env.mongoURL ; 
 const cors = require('cors');
 app.use(cors({
-    origin: 'https://application-0-tooww.mongodbstitch.com/'
+    origin: 'https://application-0-tooww.mongodbstitch.com'
 }));
 
 const  mongoAtlasUri = mongourl ; 
@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(userRouter);
 
 app.get('/', (req, res) => {
-  res.send('<h2>This is from index.js file</h2>');
+  res.send('<h2>This is from no index.js file</h2>');
 });
 
 app.use((req, res, next) => {
