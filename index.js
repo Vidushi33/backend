@@ -16,9 +16,9 @@ app.use(cors({
     origin: 'https://www.bizdateup.com'
 }));
 
-app.use(cors({
-  origin: 'https://application-0-tooww.mongodbstitch.com'
-}));
+// app.use(cors({
+//   origin: 'https://application-0-tooww.mongodbstitch.com'
+// }));
 const  mongoAtlasUri = mongourl ; 
 // "mongodb+srv://pranav:1999mistry@cluster0.usll9.mongodb.net/Cluster0?retryWrites=true&w=majority";
 mongoose.connect(mongoAtlasUri, {
@@ -32,7 +32,7 @@ app.use(express.json());
 app.use(userRouter);
 
 app.get('/', (req, res) => {
-  res.send('<h2>This is from no index.js file</h2>');
+  res.send('<h2>This is from index.js file</h2>');
 });
 
 app.use((req, res, next) => {
