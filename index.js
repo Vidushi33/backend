@@ -13,9 +13,12 @@ const PORT = process.env.PORT || 5000;
 const mongourl = process.env.mongoURL ; 
 const cors = require('cors');
 app.use(cors({
-    origin: 'https://application-0-tooww.mongodbstitch.com'
+    origin: 'https://www.bizdateup.com'
 }));
 
+app.use(cors({
+  origin: 'https://application-0-tooww.mongodbstitch.com'
+}));
 const  mongoAtlasUri = mongourl ; 
 // "mongodb+srv://pranav:1999mistry@cluster0.usll9.mongodb.net/Cluster0?retryWrites=true&w=majority";
 mongoose.connect(mongoAtlasUri, {
