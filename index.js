@@ -8,13 +8,21 @@ const userRouter = require('./routers/user');
 const dotenv = require("dotenv"); 
 require('./db');
 
+const InvestModel = require('./models/invest')
+const moment = require('moment')
+const RazorPay=require('razorpay')
+
+
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 const mongourl = process.env.mongoURL ; 
 const cors = require('cors');
-app.use(cors({
-    origin: 'https://www.bizdateup.com'
-}));
+// app.use(cors({
+//     origin: 'https://www.bizdateup.com'
+// }));
+
+app.use(cors())
 
 // app.use(cors({
 //   origin: 'https://application-0-tooww.mongodbstitch.com'
@@ -35,9 +43,52 @@ app.get('/', (req, res) => {
   res.send('<h2>This is from index.js file</h2>');
 });
 
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
-});
+// app.use((req, res, next) => {
+//   res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
+// });
+
+app.post("/invest", async(req,res) => {
+      console.log(req.body)
+      const {productId, productName,amount} = req.body
+      const investingTime = moment().format('MMMM Do YYYY, h:mm:ss a')
+      
+      const newInvestor = await InvestModel.create({productId, productName,amount,investingTime})
+
+      const convenienceFees = 0.02 * Number(req.body.amount)
+      const gst = 0.18 * convenienceFees
+      const tds = 0.1 * convenienceFees
+
+      const totalAmount = Number(req.body.amount) + convenienceFees + gst - tds
+      console.log("total amount :", totalAmount)
+
+      return res.json({
+        newInvestor : newInvestor,
+        convenienceFees:convenienceFees,
+        gst:gst,
+        tds:tds,
+        totalAmount : totalAmount,
+        investingTime : investingTime
+      })
+})
+
+app.post("/payOnline", async(req,res) => {
+      let instance = new RazorPay({
+        key_id : process.env.KEY_ID,
+        key_secret : process.env.KEY_SECRET
+      })
+      
+      instance.orders.create({amount:parseInt(req.body.totalAmount)*100, currency:"INR"},
+            (err,order) => {
+              if(!err){
+                res.json(order)
+              } 
+              else{
+                res.json(err)
+              }
+            } 
+        )
+        console.log(MyOrder.id)
+})
 
 // mongoose
 //   .connect("mongodb://localhost:27017/paymentorder", {

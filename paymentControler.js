@@ -10,7 +10,7 @@ let orderId;
 
 var instance = new Razorpay({
   key_id: process.env.KEY_ID,
-  key_secret: process.env.SECREAT_KEY,
+  key_secret: process.env.KEY_SECRET,
 });
 
 exports.createOrder = (req, res) => {
