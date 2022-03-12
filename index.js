@@ -40,7 +40,7 @@ app.use(express.json());
 app.use(userRouter);
 
 app.get('/', (req, res) => {
-  res.send('<h2>This is from index.js file</h2>');
+  res.send('<h2>Welcome to the backend</h2>');
 });
 
 // app.use((req, res, next) => {
